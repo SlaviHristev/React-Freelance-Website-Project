@@ -3,8 +3,8 @@ import "./Home.scss"
 
 const Home =() =>{
     return(
-        <div classname='home'>Home</div>
+        <div className='home'>Home</div>
     )
 }
 
-export default Home
+export default Home;

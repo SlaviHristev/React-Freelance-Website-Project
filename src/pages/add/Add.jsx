@@ -3,7 +3,7 @@ import "./Add.scss"
 
 const Add =() =>{
     return(
-        <div classname='add'>Add</div>
+        <div className='add'>Add</div>
     )
 }
 
