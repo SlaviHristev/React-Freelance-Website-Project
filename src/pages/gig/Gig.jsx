@@ -11,7 +11,7 @@ const Gig = () => {
                     <h1>I will create ai generated art for you</h1>
 
                     <div className="user">
-                        <img src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                        <img className="pp" src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                         <span>Slavi H</span>
                         <div className="stars">
                             <img src="/img/star.png" alt="" />
@@ -23,10 +23,10 @@ const Gig = () => {
 
                         <span>5</span>
                     </div>
-                    <Slider slidesToShow={1} arrowsScroll={1}>
-                        <img src="" alt="" />
-                        <img src="" alt="" />
-                        <img src="" alt="" />
+                    <Slider slidesToShow={1} arrowsScroll={1} className='slider'>
+                        <img src="https://images.pexels.com/photos/1029141/pexels-photo-1029141.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                        <img src="https://images.pexels.com/photos/256450/pexels-photo-256450.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                        <img src="https://images.pexels.com/photos/1004783/pexels-photo-1004783.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                     </Slider>
                     <h2>About This Gig</h2>
                     <p>I use an AI program to create images based on text prompts. This means I can help you to create a vision you have
@@ -78,7 +78,99 @@ const Gig = () => {
                         </div>
                     </div>
                     <div className="reviews">
-                        
+                        <h2>Reviews</h2>
+                        <div className="item">
+                            <div className="user">
+                                <img src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                                <div className="info">
+                                    <span>Slavi H</span>
+                                    <div className="contry">
+                                        <img src="" alt="" />
+                                        <span>Bulgaria</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="stars">
+                                <img src="/img/star.png" alt="" />
+                                <img src="/img/star.png" alt="" />
+                                <img src="/img/star.png" alt="" />
+                                <img src="/img/star.png" alt="" />
+                                <img src="/img/star.png" alt="" />
+                            </div>
+                            <p>
+                                This is very good!
+                            </p>
+                            <div className="helpful">
+                                <span>Helpful?</span>
+                                <img src="/img/like.png" alt="" />
+                                <span>Yes</span>
+                                <img src="/img/dislike.png" alt="" />
+                                <span>No</span>
+
+                            </div>
+                        </div>
+                        <hr />
+                        <div className="item">
+                            <div className="user">
+                                <img src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                                <div className="info">
+                                    <span>Slavi H</span>
+                                    <div className="contry">
+                                        <img src="" alt="" />
+                                        <span>Bulgaria</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="stars">
+                                <img src="/img/star.png" alt="" />
+                                <img src="/img/star.png" alt="" />
+                                <img src="/img/star.png" alt="" />
+                                <img src="/img/star.png" alt="" />
+                                <img src="/img/star.png" alt="" />
+                            </div>
+                            <p>
+                                This is very good!
+                            </p>
+                            <div className="helpful">
+                                <span>Helpful?</span>
+                                <img src="/img/like.png" alt="" />
+                                <span>Yes</span>
+                                <img src="/img/dislike.png" alt="" />
+                                <span>No</span>
+
+                            </div>
+                        </div>
+                        <hr />
+                        <div className="item">
+                            <div className="user">
+                                <img src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                                <div className="info">
+                                    <span>Slavi H</span>
+                                    <div className="contry">
+                                        <img src="" alt="" />
+                                        <span>Bulgaria</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="stars">
+                                <img src="/img/star.png" alt="" />
+                                <img src="/img/star.png" alt="" />
+                                <img src="/img/star.png" alt="" />
+                                <img src="/img/star.png" alt="" />
+                                <img src="/img/star.png" alt="" />
+                            </div>
+                            <p>
+                                This is very good!
+                            </p>
+                            <div className="helpful">
+                                <span>Helpful?</span>
+                                <img src="/img/like.png" alt="" />
+                                <span>Yes</span>
+                                <img src="/img/dislike.png" alt="" />
+                                <span>No</span>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="right">
