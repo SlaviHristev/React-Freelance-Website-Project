@@ -35,7 +35,7 @@ const Gig = () => {
                     <div className="seller">
                         <h2>About The Seller</h2>
                         <div className="user">
-                            <img src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                            <img className="pp" src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                             <div className="info">
                                 <span>Slavi H</span>
                                 <div className="stars">
@@ -81,11 +81,11 @@ const Gig = () => {
                         <h2>Reviews</h2>
                         <div className="item">
                             <div className="user">
-                                <img src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                                <img className="pp" src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                                 <div className="info">
                                     <span>Slavi H</span>
-                                    <div className="contry">
-                                        <img src="" alt="" />
+                                    <div className="country">
+                                        <img src="https://images.pexels.com/photos/7485857/pexels-photo-7485857.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                                         <span>Bulgaria</span>
                                     </div>
                                 </div>
@@ -112,11 +112,11 @@ const Gig = () => {
                         <hr />
                         <div className="item">
                             <div className="user">
-                                <img src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                                <img className="pp" src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                                 <div className="info">
                                     <span>Slavi H</span>
-                                    <div className="contry">
-                                        <img src="" alt="" />
+                                    <div className="country">
+                                        <img src="https://images.pexels.com/photos/7485857/pexels-photo-7485857.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                                         <span>Bulgaria</span>
                                     </div>
                                 </div>
@@ -143,11 +143,11 @@ const Gig = () => {
                         <hr />
                         <div className="item">
                             <div className="user">
-                                <img src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                                <img className="pp" src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                                 <div className="info">
                                     <span>Slavi H</span>
-                                    <div className="contry">
-                                        <img src="" alt="" />
+                                    <div className="country">
+                                        <img src="https://images.pexels.com/photos/7485857/pexels-photo-7485857.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                                         <span>Bulgaria</span>
                                     </div>
                                 </div>
@@ -174,6 +174,40 @@ const Gig = () => {
                     </div>
                 </div>
                 <div className="right">
+                    <div className="price">
+                        <h3>1 AI generated image</h3>
+                        <h2>$ 29.99</h2>
+                    </div>
+                        <p>I will create an unique high quality AI generated image based on a description that you give me</p>
+                    <div className="details">
+                        <div className="item">
+                            <img src="/img/clock.png" alt="" />
+                            <span>2 days Delivery</span>
+                        </div>
+                        <div className="item">
+                            <img src="/img/recycle.png" alt="" />
+                            <span>3 Revisions</span>
+                        </div>
+                    </div>
+                    <div className="features">
+                        <div className="item">
+                            <img src="/img/greencheck.png" alt="" />
+                            <span>Prompt writing</span>
+                        </div>
+                        <div className="item">
+                            <img src="/img/greencheck.png" alt="" />
+                            <span>Prompt writing</span>
+                        </div>
+                        <div className="item">
+                            <img src="/img/greencheck.png" alt="" />
+                            <span>Prompt writing</span>
+                        </div>
+                        <div className="item">
+                            <img src="/img/greencheck.png" alt="" />
+                            <span>Prompt writing</span>
+                        </div>
+                    </div>
+                    <button>Continue</button>
                 </div>
             </div>
         </div>
