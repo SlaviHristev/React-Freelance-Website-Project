@@ -7,6 +7,7 @@ import conversationRoute from './routes/conversation.js'
 import messageRoute from './routes/message.js'
 import gigRoute from './routes/gig.js'
 import orderRoute from './routes/order.js'
+import authRoute from './routes/auth.js'
 
 const app = express();
 dotenv.config();
@@ -21,12 +22,15 @@ const connectDB = async() =>{
     }
 };
 
+app.use(express.json())
+
 app.use("/api/users", userRoute);
 app.use("/api/gigs", gigRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
+app.use("/api/auth", authRoute);
 
 
 
