@@ -8,6 +8,7 @@ import messageRoute from './routes/message.js'
 import gigRoute from './routes/gig.js'
 import orderRoute from './routes/order.js'
 import authRoute from './routes/auth.js'
+import cookieParser from 'cookie-parser';
 
 const app = express();
 dotenv.config();
@@ -22,7 +23,8 @@ const connectDB = async() =>{
     }
 };
 
-app.use(express.json())
+app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/users", userRoute);
 app.use("/api/gigs", gigRoute);
