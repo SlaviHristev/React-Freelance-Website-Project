@@ -34,6 +34,13 @@ app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
 app.use("/api/auth", authRoute);
 
+app.use((err,req,res,next) =>{
+    const errStatus = err.status || 500;
+    const errMessage = err.message || 'Something went wrong!';
+
+    return res.status(errStatus).send(errMessage)
+})
+
 
 
 app.listen(6000, () =>{
