@@ -10,6 +10,28 @@ import orderRoute from './routes/order.js'
 import authRoute from './routes/auth.js'
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import multer from "multer";
+
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        const uploadDir = path.join(__dirname, "../public/upload");
+        cb(null, uploadDir);
+    },
+    filename: function(req, file, cb) {
+        cb(null, Date.now() + file.originalname);
+    },
+});
+
+const upload = multer({storage: storage})
+
 
 const app = express();
 dotenv.config();
@@ -42,7 +64,10 @@ app.use((err,req,res,next) =>{
 
     return res.status(errStatus).send(errMessage)
 })
-
+app.post("/api/public/upload", upload.single("file"), (req,res) =>{
+    const file = req.file;
+    res.status(200).json(file.filename)
+})
 
 
 app.listen(8800, () =>{

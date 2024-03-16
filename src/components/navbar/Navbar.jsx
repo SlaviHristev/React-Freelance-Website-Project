@@ -49,10 +49,10 @@ const Navbar = () => {
                     <span>English</span>
                     <span>Sign In</span>
                     {!currentUser?.isSeller && <span>Become a Seller</span>}
-                    {!currentUser && <button>Join</button>}
+                    {!currentUser && <Link to='/register'><button>Join</button></Link>}
                     {currentUser && (
                         <div className="user" onClick={() => setOpen(!open)}>
-                            <img src={currentUser.img || '/img/man.png'} alt="" />
+                            <img src={'/public/upload/' + currentUser.img || '/img/man.png'} alt="" />
                             <span>{currentUser?.username}</span>
                             {open && (<div className="options">
                                 {currentUser?.isSeller && (
