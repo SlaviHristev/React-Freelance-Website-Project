@@ -15,6 +15,8 @@ import {
   RouterProvider,
   Outlet
 } from "react-router-dom"
+import Login from "./pages/login/Login"
+import Register from "./pages/register/Register"
 
 function App() {
 
@@ -65,6 +67,14 @@ function App() {
           path:'/message/:id',
           element: <Message/>
         },
+        {
+          path:'/login',
+          element: <Login/>
+        },
+        {
+          path:'/register',
+          element: <Register/>
+        }
       ]
     }
   ])

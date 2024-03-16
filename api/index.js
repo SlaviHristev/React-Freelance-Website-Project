@@ -9,6 +9,7 @@ import gigRoute from './routes/gig.js'
 import orderRoute from './routes/order.js'
 import authRoute from './routes/auth.js'
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 const app = express();
 dotenv.config();
@@ -25,6 +26,7 @@ const connectDB = async() =>{
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({origin: "http://localhost:5173",credentials:true}))
 
 app.use("/api/users", userRoute);
 app.use("/api/gigs", gigRoute);
@@ -43,7 +45,7 @@ app.use((err,req,res,next) =>{
 
 
 
-app.listen(6000, () =>{
+app.listen(8800, () =>{
     connectDB();
     console.log('Server is running...');
 })
