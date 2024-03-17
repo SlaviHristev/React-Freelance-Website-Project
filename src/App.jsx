@@ -16,64 +16,68 @@ import {
   Outlet
 } from "react-router-dom"
 import Login from "./pages/login/Login"
-import Register from "./pages/register/Register"
+import Register from "./pages/register/Register";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query"
 
 function App() {
+  const queryClient = new QueryClient();
 
-  const Layout = () =>{
-    return(
+  const Layout = () => {
+    return (
       <>
-      <Navbar/>
-      <Outlet/>
-      <Footer/>
+        <QueryClientProvider client={queryClient}>
+          <Navbar />
+          <Outlet />
+          <Footer />
+        </QueryClientProvider>
       </>
     )
   }
 
   const router = createBrowserRouter([
     {
-      path:'/',
-      element:<Layout/>,
-      children:[
+      path: '/',
+      element: <Layout />,
+      children: [
         {
-          path:'/',
-          element: <Home/>
+          path: '/',
+          element: <Home />
         },
         {
-          path:'/gigs',
-          element: <Gigs/>
+          path: '/gigs',
+          element: <Gigs />
         },
         {
-          path:'/gig/:id',
-          element: <Gig/>
+          path: '/gig/:id',
+          element: <Gig />
         },
         {
-          path:'/orders',
-          element: <MyOrders/>
+          path: '/orders',
+          element: <MyOrders />
         },
         {
-          path:'/mygigs',
-          element: <MyGigs/>
+          path: '/mygigs',
+          element: <MyGigs />
         },
         {
-          path:'/add',
-          element: <Add/>
+          path: '/add',
+          element: <Add />
         },
         {
-          path:'/messages',
-          element: <Messages/>
+          path: '/messages',
+          element: <Messages />
         },
         {
-          path:'/message/:id',
-          element: <Message/>
+          path: '/message/:id',
+          element: <Message />
         },
         {
-          path:'/login',
-          element: <Login/>
+          path: '/login',
+          element: <Login />
         },
         {
-          path:'/register',
-          element: <Register/>
+          path: '/register',
+          element: <Register />
         }
       ]
     }

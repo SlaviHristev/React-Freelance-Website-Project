@@ -47,7 +47,7 @@ const Navbar = () => {
                     <span>Freelance4U Business</span>
                     <span>Explore</span>
                     <span>English</span>
-                    <span>Sign In</span>
+                    <Link to='/login' className="link">Sign In</Link>
                     {!currentUser?.isSeller && <span>Become a Seller</span>}
                     {!currentUser && <Link to='/register'><button>Join</button></Link>}
                     {currentUser && (
