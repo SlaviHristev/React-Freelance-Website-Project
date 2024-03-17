@@ -2,7 +2,7 @@ import React from "react";
 import './GigCard.scss'
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import newRequest from "../../utils/requests";
+import newRequest from "../../utils/requests.js";
 
 const GigCard = ({ item }) => {
 
@@ -17,9 +17,10 @@ const GigCard = ({ item }) => {
               return res.data;
             }),
       });
-
+      console.log(item);
     return (
-        <Link to='/gig/1' className="link">
+        
+        <Link to={`/gig/${item._id}`} className="link">
             <div className="gigCard">
                 <img src={item.cover} alt="" />
                 <div className="info">

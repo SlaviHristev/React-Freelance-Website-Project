@@ -1,14 +1,33 @@
 import React from "react";
 import "./Gig.scss"
 import { Slider } from "infinite-react-carousel";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import newRequest from "../../utils/requests.js";
 
 const Gig = () => {
+    const {id} = useParams();
+
+    const { isLoading, error, data } = useQuery({
+        queryKey: ["gig"],
+        queryFn: () =>
+          newRequest
+            .get(
+              `/gigs/single/${id}`
+            )
+            .then((res) => {
+              return res.data;
+            }),
+      });
+
     return (
         <div className='gig'>
-            <div className="container">
+            {isLoading ? ("loading..." )
+            : error ? ("Something went wrong!") 
+            : (<div className="container">
                 <div className="left">
-                    <span className="breadcrumbs">FREELANCE4U > GRAPHICS & DESIGN ></span>
-                    <h1>I will create ai generated art for you</h1>
+                    <span className="breadcrumbs">FREELANCE4U {">"} GRAPHICS & DESIGN {">"}</span>
+                    <h1>{data.title}</h1>
 
                     <div className="user">
                         <img className="pp" src="https://images.pexels.com/photos/5378700/pexels-photo-5378700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
@@ -24,13 +43,16 @@ const Gig = () => {
                         <span>5</span>
                     </div>
                     <Slider slidesToShow={1} arrowsScroll={1} className='slider'>
-                        <img src="https://images.pexels.com/photos/1029141/pexels-photo-1029141.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
-                        <img src="https://images.pexels.com/photos/256450/pexels-photo-256450.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
-                        <img src="https://images.pexels.com/photos/1004783/pexels-photo-1004783.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                        {data.images.map((img) =>(
+                            <img
+                            key={img}
+                            src={img}
+                            alt=""
+                            />
+                        ))};
                     </Slider>
                     <h2>About This Gig</h2>
-                    <p>I use an AI program to create images based on text prompts. This means I can help you to create a vision you have
-                        through a textual description of your scene without requiring any reference images.
+                    <p>{data.desc}
                     </p>
                     <div className="seller">
                         <h2>About The Seller</h2>
@@ -175,41 +197,31 @@ const Gig = () => {
                 </div>
                 <div className="right">
                     <div className="price">
-                        <h3>1 AI generated image</h3>
-                        <h2>$ 29.99</h2>
+                        <h3>{data.shortTitle}</h3>
+                        <h2>$ ${data.price}</h2>
                     </div>
-                        <p>I will create an unique high quality AI generated image based on a description that you give me</p>
+                        <p>{data.shortDesc}</p>
                     <div className="details">
                         <div className="item">
                             <img src="/img/clock.png" alt="" />
-                            <span>2 days Delivery</span>
+                            <span>${data.deliveryDate} days Delivery</span>
                         </div>
                         <div className="item">
                             <img src="/img/recycle.png" alt="" />
-                            <span>3 Revisions</span>
+                            <span>${data.revisionTime} Revisions</span>
                         </div>
                     </div>
                     <div className="features">
-                        <div className="item">
+                        {data.features.map((feature) =>(
+                        <div className="item" key={feature}>
                             <img src="/img/greencheck.png" alt="" />
-                            <span>Prompt writing</span>
+                            <span>{feature}</span>
                         </div>
-                        <div className="item">
-                            <img src="/img/greencheck.png" alt="" />
-                            <span>Prompt writing</span>
-                        </div>
-                        <div className="item">
-                            <img src="/img/greencheck.png" alt="" />
-                            <span>Prompt writing</span>
-                        </div>
-                        <div className="item">
-                            <img src="/img/greencheck.png" alt="" />
-                            <span>Prompt writing</span>
-                        </div>
+                        ))}
                     </div>
                     <button>Continue</button>
                 </div>
-            </div>
+            </div>)}
         </div>
     )
 }

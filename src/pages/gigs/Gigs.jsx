@@ -27,8 +27,6 @@ const Gigs = () => {
             }),
       });
 
-      console.log(data);
-
     const reSort = (type) => {
         setSort(type);
         setOpen(false);
@@ -44,7 +42,7 @@ const Gigs = () => {
     return (
         <div className='gigs'>
             <div className="container">
-                <span className="breadCrumbs">FREELANCE4U > GRAPHICS & DESIGN ></span>
+                <span className="breadCrumbs">FREELANCE4U {">"} GRAPHICS & DESIGN {">"}</span>
                 <h1>AI ARTISTS</h1>
                 <p>Explore the boundaries of art and technology with Freelance4U's AI artists</p>
                 <div className="menu">
