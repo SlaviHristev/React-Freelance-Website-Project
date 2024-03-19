@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./Gigs.scss"
 import GigCard from "../../components/gigCard/GigCard";
 import { useQuery } from "@tanstack/react-query";
-import newRequest from "../../utils/requests.js";
+import newRequest from "../../utils/requests";
 import { useLocation } from "react-router-dom";
 
 

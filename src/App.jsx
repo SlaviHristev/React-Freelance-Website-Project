@@ -17,7 +17,7 @@ import {
 } from "react-router-dom"
 import Login from "./pages/login/Login"
 import Register from "./pages/register/Register";
-import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query"
+import { QueryClient, QueryClientProvider  } from "@tanstack/react-query"
 
 function App() {
   const queryClient = new QueryClient();
