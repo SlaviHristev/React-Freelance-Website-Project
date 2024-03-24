@@ -36,7 +36,6 @@ const MyOrders = () => {
                         <th>Image</th>
                         <th>Title</th>
                         <th>Price</th>
-                        <th>{currentUser?.isSeller ? "Buyer" : "Seller"}</th>
                         <th>Contact</th>
                     </tr>
                    { data.map(order=>(
