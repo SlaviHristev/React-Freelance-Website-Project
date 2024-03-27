@@ -55,6 +55,7 @@ const Messages = () => {
                     </tr>
                     {data.map(c=>(
 
+
                         <tr className= { currentUser.isSeller && !c.readBySeller || !currentUser.isSeller && !c.readByBuyer && "active"} key={c.id}>
                         <td>
                             {currentUser.isSeller ? c.buyerId : c.sellerId}
