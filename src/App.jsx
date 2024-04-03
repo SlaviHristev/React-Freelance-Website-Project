@@ -9,14 +9,16 @@ import MyOrders from "./pages/myOrders/MyOrders"
 import Add from "./pages/add/Add"
 import Messages from "./pages/messages/Messages"
 import Message from "./pages/singleMessage/Message"
+import Pay from "./pages/pay/Pay"
+import Success from "./pages/success/Success"
+import Login from "./pages/login/Login"
+import Register from "./pages/register/Register";
 import './app.scss'
 import {
   createBrowserRouter,
   RouterProvider,
   Outlet
 } from "react-router-dom"
-import Login from "./pages/login/Login"
-import Register from "./pages/register/Register";
 import { QueryClient, QueryClientProvider  } from "@tanstack/react-query"
 
 function App() {
@@ -78,6 +80,14 @@ function App() {
         {
           path: '/register',
           element: <Register />
+        },
+        {
+          path: '/pay/:id',
+          element: <Pay />
+        },
+        {
+          path: '/success',
+          element: <Success />
         }
       ]
     }
