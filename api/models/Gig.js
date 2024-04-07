@@ -32,7 +32,7 @@ const gigSchema = new Schema({
     },
     cover:{
         type:String,
-        required:true,
+        required:false,
     },
     images:{
         type:[String],
@@ -48,11 +48,11 @@ const gigSchema = new Schema({
     },
     deliveryTime:{
         type:Number,
-        required:true,
+        required:false,
     },
     revisionTime:{
         type:Number,
-        required:true,
+        required:false,
     },
     features:{
         type:[String],

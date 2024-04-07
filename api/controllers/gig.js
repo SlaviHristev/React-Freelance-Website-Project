@@ -28,18 +28,16 @@ export const deleteGig = async(req,res,next) =>{
         next(error)
     }
 }
-export const getGig = async(req,res,next) =>{
+export const getGig = async (req, res, next) => {
     try {
-        const gig = await Gig.findById(req.params.id);
-        if(!gig){
-            next(createError(404,"Gig not found!"))
-        }
-        res.status(200).send(gig)
-    } catch (error) {
-        next(error)
+      const gig = await Gig.findById(req.params.id);
+      if (!gig) next(createError(404, "Gig not found!"));
+      res.status(200).send(gig);
+    } catch (err) {
+      next(err);
     }
-}
-export const getGigs = async (req, res, next) => {
+  };
+  export const getGigs = async (req, res, next) => {
     const q = req.query;
     const filters = {
       ...(q.userId && { userId: q.userId }),
