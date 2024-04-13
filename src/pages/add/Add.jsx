@@ -5,187 +5,180 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import newRequest from "../../utils/requests.js";
 
-
-const uploadFile = async (file) => {
-    try {
-        const formData = new FormData();
-        formData.append("file", file);
-        const res = await newRequest.post("/upload", formData);
-        return res.data;
-    } catch (err) {
-        console.log(err);
-        throw err;
-    }
-};
-
+import axios from "axios";
 
 
 const Add = () => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const token = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
     const [singleFile, setSingleFile] = useState(undefined);
     const [files, setFiles] = useState([]);
     const [uploading, setUploading] = useState(false);
-
     const [state, dispatch] = useReducer(gigReducer, INITIAL_STATE);
-    const navigate = useNavigate();
-    const queryClient = useQueryClient();
-
+    
+  
     const handleChange = (e) => {
-        dispatch({
-            type: "CHANGE_INPUT",
-            payload: { name: e.target.name, value: e.target.value },
-        });
+      dispatch({
+        type: "CHANGE_INPUT",
+        payload: { name: e.target.name, value: e.target.value },
+      });
     };
+    
     const handleFeature = (e) => {
-        e.preventDefault();
-        dispatch({
-            type: "ADD_FEATURE",
-            payload: e.target[0].value,
-        });
-        e.target[0].value = "";
+      e.preventDefault();
+      dispatch({
+        type: "ADD_FEATURE",
+        payload: e.target[0].value,
+      });
+      e.target[0].value = "";
     };
-
-
-    const uploadFile = async (file) => {
+  
+    const handleUpload = async () => {
+        setUploading(true);
         try {
-            const formData = new FormData();
-            formData.append("file", file);
-            const res = await newRequest.post("/public/upload", formData);
-            return res.data;
+          const cover = await uploadImage(singleFile);
+          const images = await Promise.all(files.map(uploadImage));
+          setUploading(false);
+          dispatch({ type: "ADD_IMAGES", payload: { cover, images } });
         } catch (err) {
-            console.log(err);
-            throw err;
-        }
-    };
-
-
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-          let imgUrl = '';
-          let multiple = [];
-          
-          if (singleFile) {
-            imgUrl = await uploadFile(singleFile);
-          }
-          if (Array.isArray(files) && files.length > 0) {
-            multiple = await Promise.all(files.map(uploadFile));
-          }
-          
-          await newRequest.post('/gigs', {
-            ...state,
-            img: imgUrl,
-            images: multiple
-          });
-          
-          queryClient.invalidateQueries(["myGigs"]);
-          navigate("/mygigs");
-        } catch (error) {
-          console.log(error);
+          console.log(err);
         }
       };
+  
+    const navigate = useNavigate();
+  
+    const queryClient = useQueryClient();
+  
+    const mutation = useMutation({
+      mutationFn: (gig) => {
+        return newRequest.post("/gigs", gig);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries(["myGigs"]);
+      },
+    });
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      mutation.mutate(state);
+      // navigate("/mygigs")
+    };
 
+    const uploadImage = async (file) => {
+        try {
+          const formData = new FormData();
+          formData.append('file', file);
+          
+          const response = await newRequest.post('/upload', formData);
+      
+          const data = await response.data;
+          return data.imageUrl;
+        } catch (error) {
+          console.error('Error uploading image:', error);
+          throw error;
+        }
+      };
+  
     return (
-        <div className="add">
-            <div className="container">
-                <h1>Add New Gig</h1>
-                <div className="sections">
-                    <div className="info">
-                        <label htmlFor="">Title</label>
-                        <input
-                            type="text"
-                            name="title"
-                            placeholder="e.g. I will do something I'm really good at"
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="">Category</label>
-                        <select name="cat" id="cat" onChange={handleChange}>
-                            <option value="design">Design</option>
-                            <option value="web">Web Development</option>
-                            <option value="animation">Animation</option>
-                            <option value="music">Music</option>
-                        </select>
-                        <div className="images">
-                            <div className="imagesInputs">
-                                <label htmlFor="">Cover Image</label>
-                                <input
-                                    type="file"
-                                    onChange={(e) => setSingleFile(e.target.files[0])}
-                                />
-                                <label htmlFor="">Upload Images</label>
-                                <input
-                                    type="file"
-                                    multiple
-                                    onChange={(e) => setFiles(e.target.files)}
-                                />
-                            </div>
-                            {/* <button onClick={handleUpload}>
-                                {uploading ? "uploading" : "Upload"}
-                            </button> */}
-                        </div>
-                        <label htmlFor="">Description</label>
-                        <textarea
-                            name="desc"
-                            id=""
-                            placeholder="Brief descriptions to introduce your service to customers"
-                            cols="0"
-                            rows="16"
-                            onChange={handleChange}
-                        ></textarea>
-                        <button onClick={handleSubmit}>Create</button>
-                    </div>
-                    <div className="details">
-                        <label htmlFor="">Service Title</label>
-                        <input
-                            type="text"
-                            name="shortTitle"
-                            placeholder="e.g. One-page web design"
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="">Short Description</label>
-                        <textarea
-                            name="shortDesc"
-                            onChange={handleChange}
-                            id=""
-                            placeholder="Short description of your service"
-                            cols="30"
-                            rows="10"
-                        ></textarea>
-                        <label htmlFor="">Delivery Time (e.g. 3 days)</label>
-                        <input type="number" name="deliveryTime" onChange={handleChange} />
-                        <label htmlFor="">Revision Number</label>
-                        <input
-                            type="number"
-                            name="revisionNumber"
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="">Add Features</label>
-                        <form action="" className="add" onSubmit={handleFeature}>
-                            <input type="text" placeholder="e.g. page design" />
-                            <button type="submit">add</button>
-                        </form>
-                        <div className="addedFeatures">
-                            {state?.features?.map((f) => (
-                                <div className="item" key={f}>
-                                    <button
-                                        onClick={() =>
-                                            dispatch({ type: "REMOVE_FEATURE", payload: f })
-                                        }
-                                    >
-                                        {f}
-                                        <span>X</span>
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                        <label htmlFor="">Price</label>
-                        <input type="number" onChange={handleChange} name="price" />
-                    </div>
+      <div className="add">
+        <div className="container">
+          <h1>Add New Gig</h1>
+          <div className="sections">
+            <div className="info">
+              <label htmlFor="">Title</label>
+              <input
+                type="text"
+                name="title"
+                placeholder="e.g. I will do something I'm really good at"
+                onChange={handleChange}
+              />
+              <label htmlFor="">Category</label>
+              <select name="cat" id="cat" onChange={handleChange}>
+                <option value="design">Design</option>
+                <option value="web">Web Development</option>
+                <option value="animation">Animation</option>
+                <option value="music">Music</option>
+              </select>
+              <div className="images">
+                <div className="imagesInputs">
+                  <label htmlFor="">Cover Image</label>
+                  <input
+                    type="file"
+                    onChange={(e) => setSingleFile(e.target.files[0])}
+                  />
+                  <label htmlFor="">Upload Images</label>
+                  <input
+                    type="file"
+                    multiple
+                    onChange={(e) => setFiles(e.target.files)}
+                  />
                 </div>
+                <button onClick={handleUpload}>
+                  {uploading ? "uploading" : "Upload"}
+                </button>
+              </div>
+              <label htmlFor="">Description</label>
+              <textarea
+                name="desc"
+                id=""
+                placeholder="Brief descriptions to introduce your service to customers"
+                cols="0"
+                rows="16"
+                onChange={handleChange}
+              ></textarea>
+              <button onClick={handleSubmit}>Create</button>
             </div>
+            <div className="details">
+              <label htmlFor="">Service Title</label>
+              <input
+                type="text"
+                name="shortTitle"
+                placeholder="e.g. One-page web design"
+                onChange={handleChange}
+              />
+              <label htmlFor="">Short Description</label>
+              <textarea
+                name="shortDesc"
+                onChange={handleChange}
+                id=""
+                placeholder="Short description of your service"
+                cols="30"
+                rows="10"
+              ></textarea>
+              <label htmlFor="">Delivery Time (e.g. 3 days)</label>
+              <input type="number" name="deliveryTime" onChange={handleChange} />
+              <label htmlFor="">Revision Number</label>
+              <input
+                type="number"
+                name="revisionNumber"
+                onChange={handleChange}
+              />
+              <label htmlFor="">Add Features</label>
+              <form action="" className="add" onSubmit={handleFeature}>
+                <input type="text" placeholder="e.g. page design" />
+                <button type="submit">add</button>
+              </form>
+              <div className="addedFeatures">
+                {state?.features?.map((f) => (
+                  <div className="item" key={f}>
+                    <button
+                      onClick={() =>
+                        dispatch({ type: "REMOVE_FEATURE", payload: f })
+                      }
+                    >
+                      {f}
+                      <span>X</span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <label htmlFor="">Price</label>
+              <input type="number" onChange={handleChange} name="price" />
+            </div>
+          </div>
         </div>
+      </div>
     );
-};
-
-export default Add;
+  };
+  
+  export default Add;

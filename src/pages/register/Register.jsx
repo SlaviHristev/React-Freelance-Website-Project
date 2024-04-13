@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Register.scss"
 import newRequest from "../../utils/requests";
 import { useNavigate } from "react-router-dom";
+import upload from "../../utils/upload";
 
 const Register =() =>{
     const [file,setFile] = useState(null)
@@ -17,16 +18,16 @@ const Register =() =>{
     });
     const navigate = useNavigate();
 
-    const upload = async () => {
-      try {
-          const formData = new FormData();
-          formData.append("file", file);
-          const res = await newRequest.post("/public/upload", formData);
-          return res.data;
-      } catch (err) {
-          console.log(err);
-      }
-  };
+  //   const upload = async () => {
+  //     try {
+  //         const formData = new FormData();
+  //         formData.append("file", file);
+  //         const res = await newRequest.post("/public/upload", formData);
+  //         return res.data;
+  //     } catch (err) {
+  //         console.log(err);
+  //     }
+  // };
     const handleChange = (e) =>{
       setUser((prev) =>{
         return{...prev, [e.target.name]: e.target.value}
@@ -43,7 +44,7 @@ const Register =() =>{
 
       e.preventDefault();
       let imgUrl= '';
-      if (file) imgUrl = await upload();
+      if (file) imgUrl = await upload(file);
 
       try {
         await newRequest.post('/auth/register',{

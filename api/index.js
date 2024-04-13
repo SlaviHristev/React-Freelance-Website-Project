@@ -11,6 +11,7 @@ import authRoute from './routes/auth.js'
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import multer from "multer";
+import uploadRoute from './routes/upload.js'
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -29,6 +30,9 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + file.originalname);
     },
 });
+
+
+  
 
 const upload = multer({storage: storage})
 
@@ -57,6 +61,7 @@ app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/upload", uploadRoute)
 
 app.use((err,req,res,next) =>{
     const errStatus = err.status || 500;
@@ -64,10 +69,10 @@ app.use((err,req,res,next) =>{
 
     return res.status(errStatus).send(errMessage)
 })
-app.post("/api/public/upload", upload.single("file"), (req,res) =>{
-    const file = req.file;
-    res.status(200).json(file.filename)
-})
+// app.post("/api/public/upload", upload.single("file"), (req,res) =>{
+//     const file = req.file;
+//     res.status(200).json(file.filename)
+// })
 
 
 app.listen(8800, () =>{
